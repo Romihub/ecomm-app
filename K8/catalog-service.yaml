@@ -1,0 +1,60 @@
+# k8s/catalog-service.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  namespace: ecomm-backend
+  labels:
+    azure.workload.identity/use: "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      serviceAccountName: "workload-identity-sa"
+      volumes:
+      - name: secrets-store
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: ecomm-keyvault-secrets
+      containers:
+      - name: catalog-service
+        image: ecomdevacr.azurecr.io/catalog:catalogv1
+        volumeMounts:
+        - name: secrets-store
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+        env:
+            - name: NODE_ENV
+              value: "dev"
+            - name: PORT
+              value: "3002"
+            - name: CORS_ORIGIN
+              value: "https://<domain-name>"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-service
+  namespace: ecomm-backend
+spec:
+  selector:
+    app: catalog-service
+  ports:
+  - port: 80
+    targetPort: 3002
+  type: ClusterIP

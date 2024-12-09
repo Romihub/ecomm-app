@@ -1,0 +1,20 @@
+{
+  "name": "ecommerce-microservices",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes concurrently \"npm run dev:frontend\" \"npm run dev:auth\" \"npm run dev:catalog\" \"npm run dev:orders\" \"npm run dev:payment\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:auth": "cd services/auth && node server.js",
+    "dev:catalog": "cd services/catalog && node server.js",
+    "dev:orders": "cd services/orders && node server.js",
+    "dev:payment": "cd services/payment && node server.js"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "connect-redis": "^8.0.1",
+    "cookie-parser": "^1.4.7",
+    "express-session": "^1.18.1",
+    "redis": "^4.7.0"
+  }
+}

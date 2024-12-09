@@ -1,0 +1,20 @@
+# configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: azure-config
+  namespace: ecomm-backend
+data:
+  TENANT_ID: ${TENANT_ID}  # Will be replaced during deployment
+  CLIENT_ID: ${CSI_CLIENT_ID}
+
+---
+# configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: azure-config
+  namespace: ecomm-frontend
+data:
+  TENANT_ID: ${TENANT_ID}  # Will be replaced during deployment
+  CLIENT_ID: ${CSI_CLIENT_ID}

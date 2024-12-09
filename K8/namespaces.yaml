@@ -1,0 +1,16 @@
+# k8s/namespaces/namespaces.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ecomm-backend
+  labels:
+    name: backend
+    environment: development
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ecomm-frontend
+  labels:
+    name: frontend
+    environment: development
