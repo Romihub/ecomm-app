@@ -11,7 +11,7 @@ metadata:
     appgw.ingress.kubernetes.io/backend-protocol: "http"
 spec:
   rules:
-  - host: <domain-name>
+  - host: example.test.com
     http:
       paths:
       - path: /

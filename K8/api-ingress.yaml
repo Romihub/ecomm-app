@@ -10,7 +10,7 @@ metadata:
     appgw.ingress.kubernetes.io/backend-protocol: "http"
 spec:
   rules:
-  - host: api.domain-name
+  - host: api.example.test.com
     http:
       paths:
       - path: /auth
